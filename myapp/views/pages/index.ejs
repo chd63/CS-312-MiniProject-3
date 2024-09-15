@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%- include('../partials/head'); %>
+</head>
+<body class="container">
+
+<header>
+  <%- include('../partials/header'); %>
+  <script>
+    function showEditForm(id, title, name, comment) {
+        // Show the edit form
+        var form = document.getElementById('edit-form-' + id);
+        form.style.display = 'block';
+    
+        // Populate form fields
+        document.getElementById('title-' + id).value = title;
+        document.getElementById('name-' + id).value = name;
+        document.getElementById('comment-' + id).value = comment;
+    }
+    
+    function hideEditForm(id) {
+        // Hide the edit form
+        var form = document.getElementById('edit-form-' + id);
+        form.style.display = 'none';
+    }
+    </script>
+</header>
+
+<main>
+  <div class="blogs">
+    <h1>BLOG</h1>
+    <p>Please enter a blog post</p>
+
+    <form name="blogPost" method="POST" action="/blog/add">
+        <table>
+            <tr>
+                <td>NAME: </td>
+                <td><input type="text" name="fname" ></td>
+                </tr>
+                <td>TITLE: </td>
+                <td><input type="text" name="title" ></td>
+                </tr>
+                <tr>
+                <tr>
+                <td>COMMENT: </td>
+                <td><input type="text" name="comment" ></td>
+                </tr>
+                <tr>
+                <td colspan="2"><input type="submit" value="add" ></td>
+                </tr>            
+        </table>
+    </form>
+
+
+    <div class="blog-list">
+        <% blogposts.forEach(function(post) { %>
+            <div class = "blog-post">
+                <h3>Title: <%= post.title %></h3>
+                <p>Name: <%= post.name %><p>
+                <p>Comment: <%= post.comment %></p>
+                <p><%= post.time %></p>
+                <form name = deletePost method="POST" action="/blog/delete">
+                    <input type="hidden" name="id" value="<%= post.id %>">
+                    <button type="submit">Delete</button>
+                </form>
+            <!-- Edit Button -->
+            <button onclick="showEditForm('<%= post.id %>', '<%= post.title %>', '<%= post.name %>', '<%= post.comment %>')">Edit</button>
+            
+            <!-- Edit Form (Initially Hidden) -->
+            <div id="edit-form-<%= post.id %>" class="edit-form" style="display:none;">
+                <form method="POST" action="/blog/edit">
+                    <input type="hidden" name="id" value="<%= post.id %>">
+                    <label for="title">Title:</label>
+                    <input type="text" name="title" id="title-<%= post.id %>" value="<%= post.title %>">
+                    <label for="name">Name:</label>
+                    <input type="text" name="name" id="name-<%= post.id %>" value="<%= post.name %>">
+                    <label for="comment">Comment:</label>
+                    <textarea name="comment" id="comment-<%= post.id %>"><%= post.comment %></textarea>
+                    <button type="submit">Save</button>
+                    <button type="button" onclick="hideEditForm('<%= post.id %>')">Cancel</button>
+                </form>
+            </div>
+                
+    
+            </div>
+        <% }); %>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <%- include('../partials/footer'); %>
+</footer>
+
+</body>
+</html>
