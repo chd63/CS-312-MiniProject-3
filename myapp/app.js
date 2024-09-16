@@ -11,7 +11,6 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // use the css file box-style
 app.use(express.static('public'));
 
-
 // array for blogs and id
 blogposts = [];
 idCount = 0;
@@ -25,7 +24,9 @@ app.get('/', function(req, res) {
 
 // get the user post
 app.post('/blog/add',function(req,res){
+
   creationTime = new Date();
+
   var blogpost = {
       name : req.body.fname,
       title : req.body.title,
