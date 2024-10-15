@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%- include('../partials/head'); %>
+</head>
+<body class="container">
+
+<header>
+  <%- include('../partials/header'); %>
+  <script>
+    </script>
+</header>
+
+<main>
+  <div class="signup">
+    <h1>Sing In</h1>
+    <p>Please enter your information</p>
+
+    <% if (message) { %> 
+        <div style="color: red; font-weight: bold;" class="alert alert-warning"><%= message %></div>
+      <% } %>
+
+    <form name="blogPost" method="POST" action="/user/signin">
+        <table>
+            <tr>
+                <td>USER ID: </td>
+                <td><input type="text" name="id" ></td>
+                </tr>
+                <td>password: </td>
+                <td><input type="text" name="password" ></td>
+                </tr>
+                <tr>
+                <tr>
+                <td>name: </td>
+                <td><input type="text" name="name" ></td>
+                </tr>
+                <tr>
+                <td colspan="2"><input type="submit" value="add" ></td>
+                </tr>            
+        </table>
+    </form>
+
+
+
+  </div>
+</main>
+
+<footer>
+  <%- include('../partials/footer'); %>
+</footer>
+
+</body>
+</html>
